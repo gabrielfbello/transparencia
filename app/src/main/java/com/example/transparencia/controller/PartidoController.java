@@ -3,6 +3,7 @@ package com.example.transparencia.controller;
 import com.example.transparencia.api.ApiClient;
 import com.example.transparencia.api.ApiInterface;
 import com.example.transparencia.api.ApiResponse;
+import com.example.transparencia.model.Partido;
 
 import java.util.List;
 
@@ -19,27 +20,27 @@ public class PartidoController {
     }
 
     public void getPartidos(final PartidosListener listener) {
-        Call<ApiResponse> call = apiService.getPartidos();
+        Call<ApiResponse<Partido>> call = apiService.getPartidos();
 
-        call.enqueue(new Callback<ApiResponse>() {
+        call.enqueue(new Callback<ApiResponse<Partido>>() {
             @Override
-            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-                if (response.isSuccessful()) {
+            public void onResponse(Call<ApiResponse<Partido>> call, Response<ApiResponse<Partido>> response) {
+                if (response.isSuccessful() && response.body() != null) {
                     listener.onPartidosReceived(response.body().getDados());
                 } else {
-                    listener.onError(response.message());
+                    // Tratamento de erro
                 }
             }
 
             @Override
-            public void onFailure(Call<ApiResponse> call, Throwable t) {
+            public void onFailure(Call<ApiResponse<Partido>> call, Throwable t) {
                 listener.onError(t.getMessage());
             }
         });
     }
 
     public interface PartidosListener {
-        void onPartidosReceived(/* Tipo de dados da resposta */List dados);
+        void onPartidosReceived(List<Partido> partidos);
         void onError(String message);
     }
 }
