@@ -25,10 +25,17 @@ public class DeputadoController {
     public void getDeputados(final DeputadosListener<Deputado> listener) {
         Call<ApiResponse<Deputado>> call = apiService.getDeputados();
 
+        System.out.println("Chamando a API: " + call.request().url());
+
         call.enqueue(new Callback<ApiResponse<Deputado>>() {
             @Override
             public void onResponse(Call<ApiResponse<Deputado>> call, Response<ApiResponse<Deputado>> response) {
+                System.out.println("Resposta da API: " + response);
+
                 if (response.isSuccessful()) {
+                    ApiResponse<Deputado> apiResponse = response.body();
+                    List<Deputado> deputados = apiResponse.getDados();
+                    listener.onDeputadosReceived(deputados);
                 } else {
                     String errorBody = "";
                     try {

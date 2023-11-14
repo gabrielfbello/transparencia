@@ -19,8 +19,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        System.out.println("Iniciando a aplicação...");
+
         DeputadoController deputadoController = new DeputadoController();
+
+        System.out.println("Buscando deputados...");
         deputadoController.getDeputados(new DeputadoController.DeputadosListener<Deputado>() {
+
             @Override
             public void onDeputadosReceived(List<Deputado> deputados) {
                 for (Deputado deputado : deputados) {
@@ -31,29 +36,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onError(String message) {
                 Log.e("API_Test", "Erro: " + message);
-                System.out.println("Erro: " + message);
             }
         });
     }
 
     private void buscarDespesasDeputado(int idDeputado) {
+        System.out.println("Buscando despesas do deputado " + idDeputado);
+
         DespesaDeputadoController despesaController = new DespesaDeputadoController();
         despesaController.getDespesasDeputado(idDeputado, new DespesaDeputadoController.DespesasListener<Despesa>() {
             @Override
             public void onDespesasReceived(List<Despesa> despesas) {
-                for (int i = 0; i < despesas.size() && i < 3; i++) {
-                    Despesa despesa = despesas.get(i);
-                    Log.i("API_Test", "Despesa: " + despesa.getTipoDespesa() + " - " + despesa.getValorLiquido());
-                    System.out.println("Despesa: " + despesa.getTipoDespesa() + " - " + despesa.getValorLiquido());
+                int count = 0;
+                for (Despesa despesa : despesas) {
+                    count++;
+                    if (count == 3) {
+                        break;
+                    }
                 }
             }
 
             @Override
             public void onError(String message) {
                 Log.e("API_Test", "Erro: " + message);
-                System.out.println("Erro: " + message);
             }
         });
     }
-
 }
