@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Transparencia</string>
+    <string name="title_activity_lista_deputados">Lista de Deputados</string>
 </resources>

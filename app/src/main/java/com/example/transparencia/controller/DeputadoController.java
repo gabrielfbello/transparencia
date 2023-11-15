@@ -22,6 +22,9 @@ public class DeputadoController {
         this.apiService = ApiClient.getClient().create(ApiInterface.class);
     }
 
+    public void buscarDeputados() {
+        Call<ApiResponse<Deputado>> call = apiService.getDeputados();
+    }
     public void getDeputados(final DeputadosListener<Deputado> listener) {
         Call<ApiResponse<Deputado>> call = apiService.getDeputados();
 

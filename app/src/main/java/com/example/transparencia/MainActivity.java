@@ -1,64 +1,46 @@
 package com.example.transparencia;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.transparencia.controller.DeputadoController;
-import com.example.transparencia.controller.DespesaDeputadoController;
-import com.example.transparencia.model.Deputado;
-import com.example.transparencia.model.Despesa;
-
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
+
+    private Button buttonListarDeputados;
+    private Button buttonBuscarDeputados;
+    private Button buttonListarPartidos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        System.out.println("Iniciando a aplicação...");
+        buttonListarDeputados = findViewById(R.id.buttonListarDeputados);
+        buttonBuscarDeputados = findViewById(R.id.buttonBuscarDeputados);
+        buttonListarPartidos = findViewById(R.id.buttonListarPartidos);
 
-        DeputadoController deputadoController = new DeputadoController();
+        buttonListarDeputados.setOnClickListener(view -> {
+            System.out.println("Listando deputados ...");
 
-        System.out.println("Buscando deputados...");
-        deputadoController.getDeputados(new DeputadoController.DeputadosListener<Deputado>() {
+            Intent intent = new Intent(MainActivity.this, ListaDeputadosActivity.class);
+            startActivity(intent);
+        });
 
+
+        buttonBuscarDeputados.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDeputadosReceived(List<Deputado> deputados) {
-                for (Deputado deputado : deputados) {
-                    buscarDespesasDeputado(deputado.getId());
-                }
-            }
-
-            @Override
-            public void onError(String message) {
-                Log.e("API_Test", "Erro: " + message);
+            public void onClick(View view) {
+                // TODO: Implementar lógica para buscar deputados
             }
         });
-    }
 
-    private void buscarDespesasDeputado(int idDeputado) {
-        System.out.println("Buscando despesas do deputado " + idDeputado);
-
-        DespesaDeputadoController despesaController = new DespesaDeputadoController();
-        despesaController.getDespesasDeputado(idDeputado, new DespesaDeputadoController.DespesasListener<Despesa>() {
+        buttonListarPartidos.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDespesasReceived(List<Despesa> despesas) {
-                int count = 0;
-                for (Despesa despesa : despesas) {
-                    count++;
-                    if (count == 3) {
-                        break;
-                    }
-                }
-            }
-
-            @Override
-            public void onError(String message) {
-                Log.e("API_Test", "Erro: " + message);
+            public void onClick(View view) {
+                // TODO: Implementar lógica para listar partidos
             }
         });
     }
