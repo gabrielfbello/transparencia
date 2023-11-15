@@ -3,9 +3,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+    <!-- EditText para busca -->
+    <EditText
+            android:id="@+id/searchEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite o nome do deputado"
+            android:inputType="text"
+            android:padding="16dp"
+            android:layout_marginBottom="8dp"/>
+
+    <!-- RecyclerView para listar os deputados -->
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewDeputados"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_below="@id/searchEditText"/>
+
+    <TextView
+            android:id="@+id/tvNoDeputados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nenhum deputado encontrado"
+            android:visibility="gone"
+            android:layout_centerInParent="true" />
 
 </RelativeLayout>

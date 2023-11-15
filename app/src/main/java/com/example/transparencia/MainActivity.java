@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         buttonListarDeputados = findViewById(R.id.buttonListarDeputados);
-        buttonBuscarDeputados = findViewById(R.id.buttonBuscarDeputados);
         buttonListarPartidos = findViewById(R.id.buttonListarPartidos);
 
         buttonListarDeputados.setOnClickListener(view -> {
@@ -27,14 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
             Intent intent = new Intent(MainActivity.this, ListaDeputadosActivity.class);
             startActivity(intent);
-        });
-
-
-        buttonBuscarDeputados.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO: Implementar lógica para buscar deputados
-            }
         });
 
         buttonListarPartidos.setOnClickListener(new View.OnClickListener() {

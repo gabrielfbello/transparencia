@@ -9,6 +9,7 @@ import com.example.transparencia.model.Deputado;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,6 +18,8 @@ import retrofit2.Response;
 public class DeputadoController {
 
     private ApiInterface apiService;
+    private List<Deputado> todosDeputadosCache;
+
 
     public DeputadoController() {
         this.apiService = ApiClient.getClient().create(ApiInterface.class);
@@ -25,6 +28,49 @@ public class DeputadoController {
     public void buscarDeputados() {
         Call<ApiResponse<Deputado>> call = apiService.getDeputados();
     }
+
+    public void getTodosDeputados(final DeputadosListener<Deputado> listener) {
+        if (todosDeputadosCache != null) {
+            listener.onDeputadosReceived(todosDeputadosCache);
+            return;
+        }
+
+        Call<ApiResponse<Deputado>> call = apiService.getDeputados();
+
+        call.enqueue(new Callback<ApiResponse<Deputado>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<Deputado>> call, Response<ApiResponse<Deputado>> response) {
+                if (response.isSuccessful()) {
+                    todosDeputadosCache = response.body().getDados();
+                    listener.onDeputadosReceived(todosDeputadosCache);
+                } else {
+                    // handle errors
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<Deputado>> call, Throwable t) {
+                // handle failures
+            }
+        });
+    }
+
+    public void buscarDeputadosPorNome(String nome, DeputadosListener<Deputado> listener) {
+        if (todosDeputadosCache == null) {
+            listener.onError("Cache de deputados não está preenchido.");
+            return;
+        }
+
+        List<Deputado> resultado = new ArrayList<>();
+
+        for (Deputado deputado : todosDeputadosCache) {
+            if (deputado.getNome().toLowerCase().contains(nome.toLowerCase())) {
+                resultado.add(deputado);
+            }
+        }
+        listener.onDeputadosReceived(resultado);
+    }
+
     public void getDeputados(final DeputadosListener<Deputado> listener) {
         Call<ApiResponse<Deputado>> call = apiService.getDeputados();
 

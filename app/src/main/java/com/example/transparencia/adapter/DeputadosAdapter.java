@@ -24,6 +24,12 @@ public class DeputadosAdapter extends RecyclerView.Adapter<DeputadosAdapter.View
         this.mInflater = LayoutInflater.from(context);
         this.deputados = deputados;
     }
+
+    public void filterList(List<Deputado> filteredList) {
+        deputados = filteredList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
