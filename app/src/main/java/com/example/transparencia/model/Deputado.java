@@ -1,5 +1,7 @@
 package com.example.transparencia.model;
 
+import java.util.List;
+
 public class Deputado {
     private int id;
     private String uri;
@@ -10,6 +12,8 @@ public class Deputado {
     private int idLegislatura;
     private String urlFoto;
     private String email;
+    private List<Despesa> despesas;
+
 
     public int getId() {
         return id;
@@ -81,5 +85,13 @@ public class Deputado {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Despesa> getDespesas() {
+        return despesas;
+    }
+
+    public void setDespesas(List<Despesa> despesas) {
+        this.despesas = despesas;
     }
 }

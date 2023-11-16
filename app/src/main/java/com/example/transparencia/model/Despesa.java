@@ -21,6 +21,7 @@ public class Despesa {
     private long codLote;
     private int parcela;
 
+
     public int getAno() {
         return ano;
     }

@@ -23,6 +23,15 @@
         </activity>
 
         <activity
+                android:name=".ListaPartidosActivity"
+                android:label="@string/title_activity_lista_partidos"
+                android:parentActivityName=".MainActivity"/>
+
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".MainActivity"/>
+
+        <activity
                 android:name=".ListaDeputadosActivity"
                 android:label="@string/title_activity_lista_deputados"
                 android:parentActivityName=".MainActivity">
@@ -31,6 +40,15 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".MainActivity"/>
         </activity>
+
+        <activity
+                android:name=".DetalhesFinanceirosDeputadoActivity"
+                android:label="@string/title_activity_deputado_financas"
+                android:parentActivityName=".ListaDeputadosActivity"/>
+
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".ListaDeputadosActivity"/>
     </application>
 
 </manifest>

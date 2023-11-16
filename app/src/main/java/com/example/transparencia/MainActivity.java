@@ -28,11 +28,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        buttonListarPartidos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO: Implementar lógica para listar partidos
-            }
+        buttonListarPartidos.setOnClickListener(view -> {
+            System.out.println("Listando partidos ...");
+
+            Intent intent = new Intent(MainActivity.this, ListaPartidosActivity.class);
+            startActivity(intent);
         });
     }
 }

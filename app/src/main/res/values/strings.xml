@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Transparencia</string>
     <string name="title_activity_lista_deputados">Lista de Deputados</string>
+    <string name="title_activity_lista_partidos">Lista de Partidos</string>
+    <string name="title_activity_deputado_financas">Despesas do Deputado</string>
 </resources>
