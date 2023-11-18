@@ -1,5 +1,6 @@
 package com.example.transparencia;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,7 +17,7 @@ import com.example.transparencia.model.Deputado;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaDeputadosActivity extends AppCompatActivity {
+public class ListaDeputadosActivity extends AppCompatActivity implements DeputadosAdapter.ItemClickListener {
     private RecyclerView recyclerViewDeputados;
     private DeputadosAdapter adapter;
     private List<Deputado> listaDeputados = new ArrayList<>();
@@ -25,17 +26,18 @@ public class ListaDeputadosActivity extends AppCompatActivity {
 
     private DeputadoController deputadoController;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_deputados);
 
         recyclerViewDeputados = findViewById(R.id.recyclerViewDeputados);
         searchEditText = findViewById(R.id.searchEditText);
+        tvNoDeputados = findViewById(R.id.tvNoDeputados);
+
         adapter = new DeputadosAdapter(this, listaDeputados);
         recyclerViewDeputados.setAdapter(adapter);
-        tvNoDeputados = findViewById(R.id.tvNoDeputados);
         recyclerViewDeputados.setLayoutManager(new LinearLayoutManager(this));
+        adapter.setClickListener(this);
 
         deputadoController = new DeputadoController();
 
@@ -121,6 +123,14 @@ public class ListaDeputadosActivity extends AppCompatActivity {
                 System.out.println("Erro ao buscar deputados por nome no ListaDeputadosActivity: " + message);
             }
         });
+    }
+
+    @Override
+    public void onItemClick(Deputado deputado) {
+        Intent intent = new Intent(ListaDeputadosActivity.this, DetalhesFinanceirosDeputadoActivity.class);
+        intent.putExtra("ID_DEPUTADO", deputado.getId());
+        intent.putExtra("NOME_DEPUTADO", deputado.getNome());
+        startActivity(intent);
     }
 }
 
